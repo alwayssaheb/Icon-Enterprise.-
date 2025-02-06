@@ -1,0 +1,93 @@
+[
+    {
+      "url": "/construction/product-1.jpeg",
+      "category": "Rebar / Dowel Installation",
+      "description": "Anchoring reinforcement bars into concrete structures without breaking RCC.",
+      "applications": [
+        "Extension work for columns, beams, cantilevers, slabs, columns-to-beam connections",
+        "Machine foundation extension",
+        "Strengthening work for beams, columns, or extra jacketing"
+      ]
+    },
+    {
+      "url": "/construction/product-5.jpeg",
+      "category": "Anchor Installation",
+      "description": "Chemical/mechanical anchor fixing for heavy, medium, and light-duty applications.",
+      "applications": [
+        "Fixing insert plates for structures, pipe support, channel, I-beam support, rails, etc.",
+        "Foundation bolts for machines subjected to high dynamic loading with less embedment depth",
+        "Fixing various machines like pumps, centrifuges, compressors, reactors, filters, etc.",
+        "Positioning machines at desired locations"
+      ]
+    },
+    {
+      "url": "/construction/product-3.jpeg",
+      "category": "Wire Sawing, Floor Saw & Core Cutting",
+      "description": "Core drilling in RCC for various applications.",
+      "applications": [
+        "Making pockets for machine foundations",
+        "Openings for AC/plumbing holes, cable/pipe ducting, fire fight ducting",
+        "Taking test cores",
+        "Vibration-free cutting for slabs, columns, beams, etc."
+      ]
+    },
+    {
+      "url": "/construction/product-4.jpeg",
+      "category": "Fire Stop Hilti System",
+      "description": "Fire-rated sealing of openings using HILTI-approved systems.",
+      "applications": [
+        "Sealing large and small-sized electric panels, cable trays, and pipe openings in various industries",
+        "Sealing individual cables in small breaches",
+        "Temporary or permanent coating to delay fire spread"
+      ]
+    },
+    {
+      "url": "/construction/product-2.jpeg",
+      "category": "Demolition / Breaking / Drilling",
+      "description": "Demolition of various concrete structures and drilling tasks.",
+      "applications": [
+        "Demolition of slabs, columns, beams, masonry work, etc.",
+        "Demolition of brick bat, PCC, RCC, etc.",
+        "Drilling in concrete of various diameters and depths"
+      ]
+    },
+    {
+      "url": "/construction/product-6.jpeg",
+      "category": "Water Proofing & Prime Pest Control",
+      "description": "Comprehensive solutions for waterproofing and pest control.",
+      "services": [
+        {
+          "name": "Waterproofing",
+          "details": [
+            "Chemical waterproofing",
+            "Structural rehabilitation",
+            "Rust control coating",
+            "Pressure grouting",
+            "Crack filling",
+            "Expansion joint filling"
+          ]
+        },
+        {
+          "name": "Pest Control",
+          "details": [
+            "Termite control for pre- and post-stages",
+            "General disinfestation",
+            "Rodent control",
+            "Disinfection/sanitization"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "/construction/product-8.webp",
+      "category": "Raised Access Flooring Systems",
+      "description": "Standard Access floor panels (600mm x 600mm) are noncombustible in nature and are coated with electrostatic epoxy paints. These panels consist of flat steel top sheet resistance welded to formed steel bottom sheet, which is in filled with a lightweight proprietary cementitious mixture. Uniquely designed hemispherical and deliver ultimate durability and acoustic performance.",
+      "applications": [
+        "Control Rooms",
+        "Communication Rooms",
+        "Server/ Hub Rooms",
+        "Training Rooms"
+      ]
+    }
+  ]
+  
