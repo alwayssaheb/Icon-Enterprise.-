@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const KotiEngineersAbout = () => {
   const productSlider = [
-    { id: 1, name: "Bentonite Pump", image: "/shammi/1.png" },
+    { id: 1, name: "Bentonite Pump", image: "/shammi/5.1.jpeg" },
     { id: 2, name: "Axial Flow Pump", image: "/shammi/2.png" },
     { id: 3, name: "Vertical Pump", image: "/shammi/3.png" },
     { id: 4, name: "AAC Pump", image: "/shammi/4.1.png" },
