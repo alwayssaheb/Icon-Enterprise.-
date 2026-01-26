@@ -1,93 +1,122 @@
 [
-    {
-      "url": "/construction/product-1.jpeg",
-      "category": "Rebar / Dowel Installation",
-      "description": "Anchoring reinforcement bars into concrete structures without breaking RCC.",
-      "applications": [
-        "Extension work for columns, beams, cantilevers, slabs, columns-to-beam connections",
-        "Machine foundation extension",
-        "Strengthening work for beams, columns, or extra jacketing"
+  {
+    "url": "/shammi/1.png",
+    "category": "Bentonite Pump",
+    "description": "Vertical pump for mixing and pumping bentonite slurry/heavy mud during piling and civil work. Strong mixing action in tank; hanging type; customisation available.",
+    "brochure": "/bro.pdf",
+    "usageTable": {
+      "title": "USAGE OF BENTONITE PUMPS",
+      "rows": [
+        ["Construction Industry.", "For mixing and Pumping bentonite or slurry"],
+        [
+          "Pilling Work",
+          "Digging out heavy and composed of dirty bentonite water mixed with sand, gravel and other materials."
+        ],
+        ["Any Industry using slurry transfer.", "Pump’s out Mixer directly to recycler"]
       ]
     },
-    {
-      "url": "/construction/product-5.jpeg",
-      "category": "Anchor Installation",
-      "description": "Chemical/mechanical anchor fixing for heavy, medium, and light-duty applications.",
-      "applications": [
-        "Fixing insert plates for structures, pipe support, channel, I-beam support, rails, etc.",
-        "Foundation bolts for machines subjected to high dynamic loading with less embedment depth",
-        "Fixing various machines like pumps, centrifuges, compressors, reactors, filters, etc.",
-        "Positioning machines at desired locations"
-      ]
-    },
-    {
-      "url": "/construction/product-3.jpeg",
-      "category": "Wire Sawing, Floor Saw & Core Cutting",
-      "description": "Core drilling in RCC for various applications.",
-      "applications": [
-        "Making pockets for machine foundations",
-        "Openings for AC/plumbing holes, cable/pipe ducting, fire fight ducting",
-        "Taking test cores",
-        "Vibration-free cutting for slabs, columns, beams, etc."
-      ]
-    },
-    {
-      "url": "/construction/product-4.jpeg",
-      "category": "Fire Stop Hilti System",
-      "description": "Fire-rated sealing of openings using HILTI-approved systems.",
-      "applications": [
-        "Sealing large and small-sized electric panels, cable trays, and pipe openings in various industries",
-        "Sealing individual cables in small breaches",
-        "Temporary or permanent coating to delay fire spread"
-      ]
-    },
-    {
-      "url": "/construction/product-2.jpeg",
-      "category": "Demolition / Breaking / Drilling",
-      "description": "Demolition of various concrete structures and drilling tasks.",
-      "applications": [
-        "Demolition of slabs, columns, beams, masonry work, etc.",
-        "Demolition of brick bat, PCC, RCC, etc.",
-        "Drilling in concrete of various diameters and depths"
-      ]
-    },
-    {
-      "url": "/construction/product-6.jpeg",
-      "category": "Water Proofing & Prime Pest Control",
-      "description": "Comprehensive solutions for waterproofing and pest control.",
-      "services": [
-        {
-          "name": "Waterproofing",
-          "details": [
-            "Chemical waterproofing",
-            "Structural rehabilitation",
-            "Rust control coating",
-            "Pressure grouting",
-            "Crack filling",
-            "Expansion joint filling"
-          ]
-        },
-        {
-          "name": "Pest Control",
-          "details": [
-            "Termite control for pre- and post-stages",
-            "General disinfestation",
-            "Rodent control",
-            "Disinfection/sanitization"
-          ]
-        }
-      ]
-    },
-    {
-      "url": "/construction/product-8.webp",
-      "category": "Raised Access Flooring Systems",
-      "description": "Standard Access floor panels (600mm x 600mm) are noncombustible in nature and are coated with electrostatic epoxy paints. These panels consist of flat steel top sheet resistance welded to formed steel bottom sheet, which is in filled with a lightweight proprietary cementitious mixture. Uniquely designed hemispherical and deliver ultimate durability and acoustic performance.",
-      "applications": [
-        "Control Rooms",
-        "Communication Rooms",
-        "Server/ Hub Rooms",
-        "Training Rooms"
+    "specTable": {
+      "title": "SPECIFICATION",
+      "rows": [
+        ["Brand Name", "KEPL Bentonite"],
+        ["MOC", "CI, ASTM, CF8 or CF8M, SS."],
+        ["Capacity", "15 HP to 30 HP"],
+        ["Head", "30 Meters"],
+        ["Colour", "Blue"],
+        ["Max Flow Rate", "500 lpm"]
       ]
     }
-  ]
-  
+  },
+  {
+    "url": "/shammi/2.png",
+    "category": "Axial Flow Pump",
+    "description": "High-discharge, low-head pump for large water transfer & circulation. Horizontal/vertical options with MS/SS material and customisation.",
+    "brochure": "/bro.pdf",
+    "usageTable": {
+      "title": "USAGE OF AXIAL FLOW PUMP",
+      "rows": [
+        ["SALT INDUSTRY", "For mixing and Pumping bentonite or slurry"],
+        [
+          "FISHING INDUSTRY",
+          "Digging out heavy and composed of dirty bentonite water mixed with sand, gravel and other materials."
+        ],
+        [
+          "INDUSTRY WITH HEAVY WATER PUMPING",
+          "Extensive pumping out water from lakes, ponds, tanks, rivers & oceans."
+        ],
+        ["IRRIGATION WORK", "Dewatering, storm water removal, Flood control."]
+      ]
+    },
+    "specTable": {
+      "title": "SPECIFICATION",
+      "rows": [
+        ["Brand Name", "KEPL Axial Flow"],
+        ["MOC", "MS, SS-304, and SS-316."],
+        ["Capacity", "15 HP to 30 HP"],
+        ["Range", "175M3/Hr to 3000M3/hr discharge."],
+        ["Head", "3 Mts to 8 Mts."],
+        ["Colour", "Blue"],
+        ["Max Flow Rate", ""]
+      ]
+    }
+  },
+  {
+    "url": "/shammi/3.png",
+    "category": "Vertical Pump",
+    "description": "Vertical pumps are designed to remain submerged in the liquid to be pumped. They use a top cantilever type bearing housing to support the long shaft. The motor stool is MS fabricated and holds the bearing housing and gland packing box.",
+    "brochure": "/bro.pdf",
+    "usageTable": {
+      "title": "VERTICAL PUMPS",
+      "rows": [
+        ["Design", "Pump remains submerged in the liquid to be pumped."],
+        ["Bearing Housing", "Top cantilever type bearing housing supports the long shaft."],
+        ["Motor Stool", "MS fabricated; holds bearing housing and gland packing box."],
+        ["Impeller Options", "Closed type, Semi-open type, Non-clog type, Vortex type."]
+      ]
+    },
+    "specTable": {
+      "title": "PUMP AVAILABILITY / OPERATING RANGE",
+      "rows": [
+        ["Material of Construction (MOC)", "CI, MS, SS-304, SS-316, ASTM A216"],
+        ["Capacity", "Up to 380 m³/hr"],
+        ["Head", "Up to 150 mtrs"],
+        ["Submerged depth", "Up to 3 mtrs"],
+        ["H.P.", "3 HP to 20 HP"]
+      ]
+    }
+  },
+  {
+    "url": "/shammi/4.1.png",
+    "category": "AAC Pump (autoclave aerated concrete)",
+    "description": "AAC Pump designed to withstand abrasive pond ash and sand gravels. Heavy-duty cantilever bearing housing, EN-8 shaft, vortex open impeller, and high chrome construction for robust performance.",
+    "brochure": "/bro.pdf",
+    "usageTable": {
+      "title": "USAGE OF AAC PUMP",
+      "rows": [
+        [
+          "AAC / Abrasive Slurry Applications",
+          "AAC Pump designed to withstand abrasive pond ash and sand gravels. Heavy-duty cantilever bearing housing, EN-8 shaft, vortex open impeller, and high chrome construction for robust performance."
+        ]
+      ]
+    },
+    "specTable": {
+      "title": "SPECIFICATION",
+      "rows": [
+        ["15 HP – 1440 rpm", "Capacity: 25 m³/hr | Head: 20 mtr"],
+        ["20 HP – 1440 rpm", "Capacity: 35 m³/hr | Head: 30 mtr"],
+        ["Bearing housing", "Cantilever type housing; 4 nos. bearings (SGI)"],
+        ["Shaft", "Heavy duty EN-8"],
+        ["Impeller", "Vortex type, open impeller"],
+        [
+          "Material of Construction",
+          "Casing: High chrome coating | Impeller: High chrome casting (Chrome 18–20%)"
+        ],
+        ["Base Plate", "19 mm heavy duty"],
+        ["Submerged depth", "1800 to 2200"],
+        ["Discharge Size", "80 mm to 90 mm"],
+        ["Motor stool", "Mount standard 15 HP or 20 HP flange-mounted 1440 rpm motor"],
+        ["Coupling", "Tyre type or Lovejoy type jaw coupling"]
+      ]
+    }
+  }
+]

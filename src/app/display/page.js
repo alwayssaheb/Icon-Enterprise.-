@@ -1,207 +1,324 @@
 "use client";
+
 import Image from "next/image";
 import services from "../../../products/products.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function Modal({ isOpen, onClose, service }) {
-  const tableData = [
-    ["USF 800", "363 (800)", "907 (2000)", "1650 (338)", "180 (397)"],
-    ["USF 1000", "454 (1000)", "1134 (2500)", "2025 (415)", "225 (496)"],
-    ["USF 1250", "567 (1250)", "1418 (3125)", "2450 (502)", "281 (619)"],
-    ["USF 1500", "680 (1500)", "1701 (3750)", "3100 (636)", "315 (694)"],
-    ["USF 2000", "907 (2000)", "1814 (4000)", "3600 (738)", "425 (937)"],
-    ["USF 2500", "1134 (2500)", "2268 (5000)", "4000 (820)", "525 (1157)"],
-  ];
+/**
+ * Products page
+ * - Download brochure button on each card and inside modal
+ * - Modal fixed footer actions (never gets cut off)
+ * - Simple, clean structure (mobile-first)
+ */
 
-  const cardData = [
-    {
-      title: "Chipboard Encapsulated Raised Access Flooring System",
-      description:
-        "High-quality modular panels with engineered construction and accurate dimensional tolerances.",
-    },
-    {
-      title: "Chipboard Non-Encapsulated Raised Access Flooring System",
-      description:
-        "Durable chipboard panels meeting EN12825 standards for strength and reliability.",
-    },
-    {
-      title: "Calcium Sulphate Raised Access Flooring System",
-      description:
-        "Panels manufactured from fibre-reinforced Calcium Sulphate for superior durability.",
-    },
-  ];
+function SectionTitle({ title, subtitle }) {
+  return (
+    <div className="text-center mb-8">
+      <p className="inline-flex items-center rounded-full bg-orange-500/10 text-orange-600 px-4 py-1 text-xs font-semibold tracking-wide">
+        PRODUCTS
+      </p>
+      <h1 className="mt-3 text-2xl sm:text-3xl font-extrabold text-gray-900">
+        {title}
+      </h1>
+      {subtitle ? (
+        <p className="mt-2 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
+          {subtitle}
+        </p>
+      ) : null}
+    </div>
+  );
+}
 
-  if (!isOpen) return null;
+function DownloadBrochureButton({ href, fileName, className = "", onClick, variant = "solid" }) {
+  if (!href) return null;
+
+  const base =
+    "inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-orange-500/40";
+  const solid = "bg-orange-500 text-black shadow-sm hover:shadow-md hover:opacity-95";
+  const outline = "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50";
 
   return (
-    <div id="services" className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm ">
-      {/* Modal Container */}
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full sm:w-11/12 md:w-9/12 lg:w-8/12 xl:w-1/2 max-h-[80vh] p-6 sm:p-8 overflow-auto">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 rounded-full p-2 shadow-md transition-transform transform hover:scale-110"
-          aria-label="Close Modal"
-        >
-          ✖
-        </button>
+    <a
+      href={href}
+      download={fileName || true}
+      onClick={onClick}
+      className={`${base} ${variant === "outline" ? outline : solid} ${className}`}
+      aria-label="Download brochure"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-4 w-4 sm:h-5 sm:w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <path d="M7 10l5 5 5-5" />
+        <path d="M12 15V3" />
+      </svg>
+      Download Brochure
+    </a>
+  );
+}
 
-        {/* Header */}
-        <h2 className="text-2xl font-semibold text-gray-800 text-center mb-8">
-          {service?.category || "System Selection Guide"}
-        </h2>
+function KVPairs({ title, rows }) {
+  const safeRows = Array.isArray(rows) ? rows : [];
+  if (!safeRows.length) return null;
 
-        {/* Table Section */}
-        <div className="overflow-x-auto mb-6 rounded-lg border border-gray-200 shadow-sm">
-          <table className="min-w-full table-auto border-collapse">
-            <thead>
-              <tr className="bg-gray-100">
-                {[
-                  "Grade",
-                  "Concentrated Load",
-                  "Ultimate Load",
-                  "Uniform Load",
-                  "Rolling Load*",
-                ].map((header) => (
-                  <th
-                    key={header}
-                    className="px-4 py-3 text-left text-sm font-medium text-gray-600"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
+  return (
+    <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden">
+      <div className="px-4 sm:px-5 py-3 bg-gray-50 border-b border-gray-200">
+        <h3 className="text-sm sm:text-base font-semibold text-gray-900">{title}</h3>
+      </div>
+
+      <div className="p-4 sm:p-5">
+        {/* Mobile */}
+        <div className="space-y-3 md:hidden">
+          {safeRows.map((row, idx) => (
+            <div key={idx} className="rounded-xl border border-gray-200 bg-white p-3">
+              <div className="text-xs font-semibold text-gray-900">{row?.[0] ?? "\u00A0"}</div>
+              <div className="mt-1 text-sm text-gray-700">{row?.[1] ?? "\u00A0"}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full border-collapse">
             <tbody>
-              {tableData.map((row, rowIndex) => (
-                <tr
-                  key={rowIndex}
-                  className={rowIndex % 2 === 0 ? "bg-white" : "bg-gray-50"}
-                >
-                  {row.map((cell, cellIndex) => (
-                    <td
-                      key={cellIndex}
-                      className="px-4 py-3 text-sm text-gray-600 border-t border-gray-200"
-                    >
-                      {cell}
-                    </td>
-                  ))}
+              {safeRows.map((row, idx) => (
+                <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                  <td className="w-[34%] min-w-[220px] px-4 py-3 font-semibold text-gray-900 border-t border-gray-200 align-top">
+                    {row?.[0] ?? "\u00A0"}
+                  </td>
+                  <td className="px-4 py-3 text-gray-700 border-t border-gray-200 align-top">
+                    {row?.[1] ?? "\u00A0"}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-
-        {/* Card Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cardData.map((card, index) => (
-            <div
-              key={index}
-              className="bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                {card.title}
-              </h3>
-              <p className="text-sm text-gray-600">{card.description}</p>
-            </div>
-          ))}
         </div>
       </div>
     </div>
   );
 }
 
-export default function ServicesPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState(null);
+function ProductModal({ open, onClose, product }) {
+  // ✅ Hooks must run every render (don’t return early before hooks)
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open, onClose]);
 
-  const openModal = (service) => {
-    setSelectedService(service);
-    setIsModalOpen(true);
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  const title = product?.category || "Product Details";
+  const desc = product?.description || "";
+
+  const usageTitle = product?.usageTable?.title || "Usage";
+  const usageRows = product?.usageTable?.rows || [];
+
+  const specTitle = product?.specTable?.title || "Specification";
+  const specRows = product?.specTable?.rows || [];
+
+  const brochureHref = product?.brochure;
+  const brochureName = `${title.replace(/\s+/g, "-")}-Brochure.pdf`;
+
+  if (!open) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[200] bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="absolute inset-0 md:flex md:items-center md:justify-center">
+        {/* ✅ KEY FIX: flex-col layout with fixed footer */}
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="
+            absolute bottom-0 left-0 right-0
+            md:static md:w-full md:max-w-5xl
+            bg-white
+            rounded-t-3xl md:rounded-3xl
+            shadow-2xl
+            overflow-hidden
+            h-[92vh] md:h-auto md:max-h-[85vh]
+            flex flex-col
+          "
+        >
+          {/* Header */}
+          <div className="shrink-0 bg-white border-b border-gray-200">
+            <div className="px-4 sm:px-6 py-4 flex items-start gap-4">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border border-gray-200 bg-white overflow-hidden flex-shrink-0">
+                {product?.url ? (
+                  <Image
+                    src={product.url}
+                    alt={title}
+                    fill
+                    sizes="80px"
+                    className="object-contain p-2"
+                    priority
+                  />
+                ) : null}
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <h2 className="text-lg sm:text-2xl font-extrabold text-gray-900 leading-tight">
+                  {title}
+                </h2>
+                {desc ? (
+                  <p className="mt-2 text-sm sm:text-base text-gray-600">{desc}</p>
+                ) : null}
+              </div>
+
+              <button
+                onClick={onClose}
+                className="rounded-full p-2 bg-gray-100 hover:bg-gray-200 transition flex-shrink-0"
+                aria-label="Close"
+              >
+                ✖
+              </button>
+            </div>
+          </div>
+
+          {/* Scrollable content */}
+          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-5 space-y-5">
+            <KVPairs title={usageTitle} rows={usageRows} />
+            <KVPairs title={specTitle} rows={specRows} />
+            <div className="h-2" />
+          </div>
+
+          {/* ✅ Footer actions (always visible) */}
+          <div
+            className="
+              shrink-0 border-t border-gray-200 bg-white
+              px-4 sm:px-6 pt-4 pb-4
+              pb-[calc(1rem+env(safe-area-inset-bottom))]
+            "
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <a
+                href="#contact"
+                onClick={onClose}
+                className="inline-flex items-center justify-center rounded-full bg-orange-500 px-5 py-3 text-sm font-semibold text-black hover:opacity-95 transition focus:outline-none focus:ring-2 focus:ring-orange-500/40"
+              >
+                Enquire Now
+              </a>
+
+              <a
+                href="tel:+917202085555"
+                className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-orange-500/40"
+              >
+                Call +91 7202085555
+              </a>
+
+              <DownloadBrochureButton
+                href={brochureHref}
+                fileName={brochureName}
+                variant="outline"
+                className="w-full"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductCard({ product, onOpen }) {
+  const brochureHref = product?.brochure;
+  const brochureName = `${(product?.category || "Product").replace(/\s+/g, "-")}-Brochure.pdf`;
+
+  return (
+    <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-lg transition">
+      <button
+        type="button"
+        onClick={() => onOpen(product)}
+        className="group w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500/40"
+      >
+        <div className="relative w-full h-52 sm:h-56 bg-white">
+          <Image
+            src={product.url}
+            alt={product.category}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-contain p-4 transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+          <div className="absolute inset-x-0 bottom-0 p-3">
+            <div className="inline-flex items-center rounded-full bg-black/70 text-white px-3 py-1 text-xs font-semibold">
+              Tap to view details
+            </div>
+          </div>
+        </div>
+
+        <div className="p-4 bg-white">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900">{product.category}</h3>
+          <p className="mt-2 text-sm text-gray-600 line-clamp-3">{product.description}</p>
+        </div>
+      </button>
+
+      <div className="px-4 pb-4">
+        <DownloadBrochureButton
+          href={brochureHref}
+          fileName={brochureName}
+          className="w-full"
+          onClick={(e) => e.stopPropagation()}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function Page() {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
+
+  const openModal = (product) => {
+    setSelected(product);
+    setOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedService(null);
-    setIsModalOpen(false);
+    setOpen(false);
+    setSelected(null);
   };
 
   return (
-    <div id="services" className="p-8 bg-gray-100 min-h-screen flex items-center justify-center ">
-      <div className="w-full max-w-7xl bg-white shadow-lg rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-          Our Services
-        </h1>
+    <section id="services" className="scroll-mt-24 bg-gray-100">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        <SectionTitle
+          title="Our Products"
+          subtitle="Explore our industrial pump range. Tap any product to view detailed usage and specifications."
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
-          {services.slice(0, 6).map((service, index) => (
-            <div
-              key={index}
-              className="group relative bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-xl overflow-hidden transition-transform transform hover:-translate-y-2 hover:scale-105 duration-300"
-            >
-              <div className="relative w-full h-48 sm:h-64">
-                <Image
-                  src={service.url}
-                  alt={service.category}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-t-lg"
-                  priority={index === 0}
-                />
-              </div>
-              <div className="p-4">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
-                  {service.category}
-                </h2>
-                <p className="text-gray-600 text-sm group-hover:text-gray-800 transition-colors">
-                  {service.description}
-                </p>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {services.map((p, idx) => (
+            <ProductCard key={idx} product={p} onOpen={openModal} />
           ))}
-        </div>
-
-        {/* For the 7th service (index 6) */}
-        {services.slice(6, 7).map((service, index) => (
-          <div
-            key={index}
-            className="group relative bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-xl overflow-hidden transition-transform transform hover:-translate-y-2 hover:scale-105 duration-300 cursor-pointer"
-            onClick={() => openModal(service)}
-          >
-            <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-              <Image
-                src={service.url}
-                alt={service.category}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-t-lg"
-                priority
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-lg font-semibold">Read More</span>
-              </div>
-            </div>
-            <div className="p-4">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
-                {service.category}
-              </h2>
-              <p className="text-gray-600 text-base group-hover:text-gray-800 transition-colors">
-                {service.description}
-              </p>
-            </div>
-          </div>
-        ))}
-
-        {/* Mobile Notification Banner */}
-        <div className="block sm:hidden text-center py-4 bg-indigo-600 text-white rounded-lg mt-8">
-          <span className="text-lg font-semibold">Click on the service above to view detailed specifications!</span>
         </div>
       </div>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        service={selectedService}
-      />
-    </div>
+      <ProductModal open={open} onClose={closeModal} product={selected} />
+    </section>
   );
 }
