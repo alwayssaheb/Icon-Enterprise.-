@@ -1,12 +1,12 @@
-import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "./component/NavBar";
-import { Poppins } from 'next/font/google';
+import { Poppins } from "next/font/google";
+import Script from "next/script";
 
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'], // Add the weights you need
-  variable: '--font-poppins',
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export const metadata = {
@@ -20,6 +20,21 @@ export default function RootLayout({ children }) {
       <body>
         <NavBar />
         {children}
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-971710724"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-ads-base" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', 'AW-971710724');
+          `}
+        </Script>
       </body>
     </html>
   );

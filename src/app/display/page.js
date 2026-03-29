@@ -4,12 +4,60 @@ import Image from "next/image";
 import services from "../../../products/products.json";
 import { useEffect, useState } from "react";
 
-/**
- * Products page
- * - Download brochure button on each card and inside modal
- * - Modal fixed footer actions (never gets cut off)
- * - Simple, clean structure (mobile-first)
- */
+const GOOGLE_ADS_SEND_TO = "AW-971710724/m25rCMTgj4QcEITCrM8D";
+
+function trackConversionAndRun(action) {
+  if (typeof window === "undefined") return;
+
+  if (typeof window.gtag !== "function") {
+    action();
+    return;
+  }
+
+  let hasRun = false;
+
+  const safeAction = () => {
+    if (hasRun) return;
+    hasRun = true;
+    action();
+  };
+
+  window.gtag("event", "conversion", {
+    send_to: GOOGLE_ADS_SEND_TO,
+    event_callback: safeAction,
+  });
+
+  window.setTimeout(safeAction, 800);
+}
+
+function triggerDownload(href, fileName) {
+  const link = document.createElement("a");
+  link.href = href;
+  link.setAttribute("download", fileName || "");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function handleTrackedDownload(e, href, fileName, extraOnClick) {
+  if (extraOnClick) {
+    extraOnClick(e);
+  }
+
+  e.preventDefault();
+
+  trackConversionAndRun(() => {
+    triggerDownload(href, fileName);
+  });
+}
+
+function handleTrackedPhoneClick(e, phoneUrl) {
+  e.preventDefault();
+
+  trackConversionAndRun(() => {
+    window.location.href = phoneUrl;
+  });
+}
 
 function SectionTitle({ title, subtitle }) {
   return (
@@ -29,20 +77,30 @@ function SectionTitle({ title, subtitle }) {
   );
 }
 
-function DownloadBrochureButton({ href, fileName, className = "", onClick, variant = "solid" }) {
+function DownloadBrochureButton({
+  href,
+  fileName,
+  className = "",
+  onClick,
+  variant = "solid",
+}) {
   if (!href) return null;
 
   const base =
     "inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-orange-500/40";
-  const solid = "bg-orange-500 text-black shadow-sm hover:shadow-md hover:opacity-95";
-  const outline = "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50";
+  const solid =
+    "bg-orange-500 text-black shadow-sm hover:shadow-md hover:opacity-95";
+  const outline =
+    "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50";
 
   return (
     <a
       href={href}
       download={fileName || true}
-      onClick={onClick}
-      className={`${base} ${variant === "outline" ? outline : solid} ${className}`}
+      onClick={(e) => handleTrackedDownload(e, href, fileName, onClick)}
+      className={`${base} ${
+        variant === "outline" ? outline : solid
+      } ${className}`}
       aria-label="Download brochure"
     >
       <svg
@@ -72,26 +130,36 @@ function KVPairs({ title, rows }) {
   return (
     <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden">
       <div className="px-4 sm:px-5 py-3 bg-gray-50 border-b border-gray-200">
-        <h3 className="text-sm sm:text-base font-semibold text-gray-900">{title}</h3>
+        <h3 className="text-sm sm:text-base font-semibold text-gray-900">
+          {title}
+        </h3>
       </div>
 
       <div className="p-4 sm:p-5">
-        {/* Mobile */}
         <div className="space-y-3 md:hidden">
           {safeRows.map((row, idx) => (
-            <div key={idx} className="rounded-xl border border-gray-200 bg-white p-3">
-              <div className="text-xs font-semibold text-gray-900">{row?.[0] ?? "\u00A0"}</div>
-              <div className="mt-1 text-sm text-gray-700">{row?.[1] ?? "\u00A0"}</div>
+            <div
+              key={idx}
+              className="rounded-xl border border-gray-200 bg-white p-3"
+            >
+              <div className="text-xs font-semibold text-gray-900">
+                {row?.[0] ?? "\u00A0"}
+              </div>
+              <div className="mt-1 text-sm text-gray-700">
+                {row?.[1] ?? "\u00A0"}
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Desktop */}
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full border-collapse">
             <tbody>
               {safeRows.map((row, idx) => (
-                <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                <tr
+                  key={idx}
+                  className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                >
                   <td className="w-[34%] min-w-[220px] px-4 py-3 font-semibold text-gray-900 border-t border-gray-200 align-top">
                     {row?.[0] ?? "\u00A0"}
                   </td>
@@ -109,7 +177,6 @@ function KVPairs({ title, rows }) {
 }
 
 function ProductModal({ open, onClose, product }) {
-  // ✅ Hooks must run every render (don’t return early before hooks)
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (e) => {
@@ -150,7 +217,6 @@ function ProductModal({ open, onClose, product }) {
       aria-modal="true"
     >
       <div className="absolute inset-0 md:flex md:items-center md:justify-center">
-        {/* ✅ KEY FIX: flex-col layout with fixed footer */}
         <div
           onClick={(e) => e.stopPropagation()}
           className="
@@ -164,7 +230,6 @@ function ProductModal({ open, onClose, product }) {
             flex flex-col
           "
         >
-          {/* Header */}
           <div className="shrink-0 bg-white border-b border-gray-200">
             <div className="px-4 sm:px-6 py-4 flex items-start gap-4">
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border border-gray-200 bg-white overflow-hidden flex-shrink-0">
@@ -199,14 +264,12 @@ function ProductModal({ open, onClose, product }) {
             </div>
           </div>
 
-          {/* Scrollable content */}
           <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-5 space-y-5">
             <KVPairs title={usageTitle} rows={usageRows} />
             <KVPairs title={specTitle} rows={specRows} />
             <div className="h-2" />
           </div>
 
-          {/* ✅ Footer actions (always visible) */}
           <div
             className="
               shrink-0 border-t border-gray-200 bg-white
@@ -225,6 +288,7 @@ function ProductModal({ open, onClose, product }) {
 
               <a
                 href="tel:+917202085555"
+                onClick={(e) => handleTrackedPhoneClick(e, "tel:+917202085555")}
                 className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-orange-500/40"
               >
                 Call +91 7202085555
@@ -272,8 +336,12 @@ function ProductCard({ product, onOpen }) {
         </div>
 
         <div className="p-4 bg-white">
-          <h3 className="text-base sm:text-lg font-bold text-gray-900">{product.category}</h3>
-          <p className="mt-2 text-sm text-gray-600 line-clamp-3">{product.description}</p>
+          <h3 className="text-base sm:text-lg font-bold text-gray-900">
+            {product.category}
+          </h3>
+          <p className="mt-2 text-sm text-gray-600 line-clamp-3">
+            {product.description}
+          </p>
         </div>
       </button>
 
@@ -282,7 +350,6 @@ function ProductCard({ product, onOpen }) {
           href={brochureHref}
           fileName={brochureName}
           className="w-full"
-          onClick={(e) => e.stopPropagation()}
         />
       </div>
     </div>
