@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Icon Enterprise
 
-## Getting Started
+A production catalogue website built for a business client to present industrial and construction products through a fast, responsive web experience.
 
-First, run the development server:
+[Live application](https://icon-enterprise.vercel.app) · [Portfolio case study](https://you-three-snowy.vercel.app/projects/icon-enterprise)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Project purpose
+
+The client needed a credible digital catalogue without the operational overhead of a full commerce platform. Icon Enterprise organizes product categories, imagery, service information, and business details into a customer-facing site that works across desktop and mobile devices.
+
+## Highlights
+
+- Dynamic category pages driven by structured product data.
+- Reusable navigation, catalogue, company, and footer components.
+- Responsive layouts built with Tailwind CSS.
+- Product imagery and downloadable brochure assets.
+- Search-engine support through sitemap and robots routes.
+- Production deployment on Vercel.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    HOME[Business landing page]
+    DATA[Structured product catalogue]
+    CATEGORY[Dynamic category route]
+    DETAIL[Product presentation]
+    SEO[Sitemap + robots]
+
+    HOME --> CATEGORY
+    DATA --> CATEGORY --> DETAIL
+    SEO --> HOME
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technology
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+`Next.js 15` · `React 19` · `Tailwind CSS` · `Vercel`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Main routes
 
-## Learn More
+| Route | Purpose |
+| --- | --- |
+| `/` | Company introduction, services, and catalogue entry points |
+| `/services/[category]` | Dynamic product category display |
+| `/display` | Additional product presentation view |
+| `/sitemap.xml` | Search-engine sitemap |
+| `/robots.txt` | Crawler rules |
 
-To learn more about Next.js, take a look at the following resources:
+## Local setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+git clone https://github.com/alwayssaheb/Icon-Enterprise.-.git
+cd Icon-Enterprise.-
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open `http://localhost:3000`.
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+src/app
+├── component             # Reusable business UI
+├── services/[category]   # Dynamic catalogue categories
+├── display               # Product display route
+├── sitemap.xml           # Sitemap route
+└── robots.txt            # Robots route
+products/products.json    # Catalogue content
+public                    # Product images and brochure
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Author
+
+Designed and developed by [Saheb Singh](https://github.com/alwayssaheb) for a business client.
